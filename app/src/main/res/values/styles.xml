@@ -1,0 +1,41 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!-- Color for menu and actionbar turn white -->
+        <item name="colorControlNormal">@android:color/white</item>
+
+        <!--item name="android:editTextColor">@android:color/white</item>
+        <item name="android:textColorHint">@android:color/white</item-->
+    </style>
+
+    <style name="Dialog_New_Materia" >
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowBackground">@drawable/round</item>
+    </style>
+
+    <style name="Dialog" >
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textColorAlertDialogListItem">@android:color/black</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:elevation">1dp</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:windowBackground">@drawable/shape_little_round</item>
+    </style>
+
+    <!--style name="Dialog_No_Border">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowBackground">@color/colorTransparent</item>
+    </style-->
+
+
+
+
+
+
+</resources>

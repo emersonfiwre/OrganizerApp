@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">OrganizerApp</string>
+    <string name="title">Organizer</string>
+    <string name="newSubject">Nova matéria</string>
+    <string name="create">Criar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="addSubject">Adicionar nova anotação</string>
+    <string name="search_hint">Pesquisar...</string>
+    <string name="action_delete">Remover cookie</string>
+    <string name="hint_digite_aqui">Digite aqui...</string>
+</resources>
