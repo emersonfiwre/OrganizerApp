@@ -10,10 +10,10 @@ import com.emerson.organizerapp.beans.Anotacao;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AnotacaoDAO {
+public class AnotacaoModel {
     private SQLiteDatabase conexao;
 
-    public AnotacaoDAO(SQLiteDatabase conexao){
+    public AnotacaoModel(SQLiteDatabase conexao){
         this.conexao = conexao;
     }
 
@@ -24,7 +24,7 @@ public class AnotacaoDAO {
         contentValues.put("NOME", anotacao.getTitulo());
 
         resultado = conexao.insertOrThrow("MATERIA",null,contentValues);
-        Log.i("LOG","inserirMateria(): " + resultado);
+        Log.i("model","inserirMateria(): " + resultado);
         return resultado;
     }
     public void delete(long codigo){

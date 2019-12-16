@@ -10,7 +10,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GaleriaDAO {
+public class GaleriaModel {
     public static final String CAMERA_IMAGE_BUCKET_NAME =
             Environment.getExternalStorageDirectory().toString()
                     + "/DCIM/Camera";

@@ -14,13 +14,13 @@ public class DadosOpenHelp extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL(ScriptDLL.getCreateTableMateria());
+        sqLiteDatabase.execSQL(ScriptDLL.getCreateTableAnotacao());
         sqLiteDatabase.execSQL(ScriptDLL.getCreateTableMensagem());
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS MATERIA");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS ANOTACAO");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS MENSAGEM");
     }
 }

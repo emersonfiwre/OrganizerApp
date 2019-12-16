@@ -18,13 +18,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.emerson.organizerapp.adapters.ChatAdapter;
+import com.emerson.organizerapp.adapters.MensagemAdapter;
 import com.emerson.organizerapp.beans.Mensagem;
 import com.emerson.organizerapp.connection.DadosOpenHelp;
 import com.emerson.organizerapp.fragments.BottomGalleryDialog;
 import com.emerson.organizerapp.fragments.BottomSheetDialog;
 import com.emerson.organizerapp.interfaces.RecyclerViewOnClickListenerHack;
-import com.emerson.organizerapp.model.MensagemDAO;
+import com.emerson.organizerapp.model.MensagemModel;
 import com.emerson.organizerapp.utilitarios.Alerts;
 import com.emerson.organizerapp.utilitarios.Tools;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -40,12 +40,12 @@ public class ChatActivity extends AppCompatActivity implements RecyclerViewOnCli
     private FloatingActionButton fabSend;
     private Toolbar toolbar;
     private List<Mensagem> mensagemList;
-    private ChatAdapter chatAdapter;
+    private MensagemAdapter chatAdapter;
 
 
     private SQLiteDatabase conexao;
     private DadosOpenHelp dadosOpenHelp;
-    private MensagemDAO mensagemDAO;
+    private MensagemModel mensagemModel;
     private long materiaId;
     private String materiaName;
 
@@ -80,9 +80,9 @@ public class ChatActivity extends AppCompatActivity implements RecyclerViewOnCli
         recyclerView.setLayoutManager(llm);
 
         //mensagemList = new ArrayList<Mensagem>();
-        mensagemDAO = new MensagemDAO(conexao);
-        mensagemList = mensagemDAO.buscarTodos(materiaId);
-        chatAdapter = new ChatAdapter(this, mensagemList);
+        mensagemModel = new MensagemModel(conexao);
+        mensagemList = mensagemModel.buscarTodos(materiaId);
+        chatAdapter = new MensagemAdapter(this, mensagemList);
         chatAdapter.setRecyclerViewOnClickListenerHack(this);
         recyclerView.setAdapter(chatAdapter);
 
@@ -137,7 +137,7 @@ public class ChatActivity extends AppCompatActivity implements RecyclerViewOnCli
             Mensagem newMensagem = new Mensagem(edtMessage.getText().toString(),dateNow);
             try{
                 newMensagem.setMateria(materiaId);
-                newMensagem.setIdMensagem(mensagemDAO.inserir(newMensagem));
+                newMensagem.setIdMensagem(mensagemModel.inserir(newMensagem));
                 chatAdapter.addView(newMensagem,mensagemList.size());
                 edtMessage.getText().clear();
 
@@ -160,7 +160,7 @@ public class ChatActivity extends AppCompatActivity implements RecyclerViewOnCli
     @Override
     public void onLongPressClickListener(View view, int position) {
         Alerts alerts = new Alerts(this,conexao);
-        ChatAdapter adapter = (ChatAdapter) recyclerView.getAdapter();
+        MensagemAdapter adapter = (MensagemAdapter) recyclerView.getAdapter();
         alerts.Options(mensagemList,position,adapter);
     }
 
@@ -188,7 +188,7 @@ public class ChatActivity extends AppCompatActivity implements RecyclerViewOnCli
         tools.saveImage(materiaName,image,newMensagem,this);
         try{
             newMensagem.setMateria(materiaId);
-            newMensagem.setIdMensagem(mensagemDAO.inserir(newMensagem));
+            newMensagem.setIdMensagem(mensagemModel.inserir(newMensagem));
             chatAdapter.addView(newMensagem,mensagemList.size());
             edtMessage.getText().clear();
 

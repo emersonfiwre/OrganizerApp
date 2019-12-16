@@ -9,28 +9,26 @@ import android.widget.Toast;
 
 import com.emerson.organizerapp.beans.Mensagem;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
-
-import static java.lang.System.in;
 
 public class Tools {
     public static final String basePath = Environment.getExternalStorageDirectory() + "/OrganizeApp";
 
-    public void createFolder(String titleFolder) {
+    public void createFolder(String titleFolder, Context context) {
         File folder = new File(Tools.basePath + File.separator + titleFolder);
 
         if (!folder.exists()) {
-            folder.mkdir();
+            if(!folder.mkdirs()) {
+                Toast.makeText(context, "Falha ao criar diretório", Toast.LENGTH_SHORT).show();
+            }
         }
     }
+
     public void saveImage(String folder, Bitmap imagem, Mensagem mensagem,Context context){
         File directory = new File(Tools.basePath + File.separator + folder);
         if(!directory.exists()){

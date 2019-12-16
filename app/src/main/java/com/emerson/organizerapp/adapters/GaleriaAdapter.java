@@ -17,27 +17,27 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.List;
 
-public class GalleryAdapter extends  RecyclerView.Adapter<GalleryAdapter.MyViewHolder> {
+public class GaleriaAdapter extends  RecyclerView.Adapter<GaleriaAdapter.MyViewHolder> {
     private List<String> galeriaList;
     private LayoutInflater layoutInflater;
     private RecyclerViewOnClickListenerHack recyclerViewOnClickListenerHack;
 
-    public GalleryAdapter(Context context, List<String> galeria){
+    public GaleriaAdapter(Context context, List<String> galeria){
         this.galeriaList = galeria;
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
     }
     @NonNull
     @Override
-    public GalleryAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public GaleriaAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Log.i("LOG","onCreateViewHolder()");
         View v = layoutInflater.inflate(R.layout.card_gallery,parent,false);
-        GalleryAdapter.MyViewHolder myViewHolder = new GalleryAdapter.MyViewHolder(v);
+        GaleriaAdapter.MyViewHolder myViewHolder = new GaleriaAdapter.MyViewHolder(v);
         return myViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GalleryAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull GaleriaAdapter.MyViewHolder holder, int position) {
         Log.i("LOG","onBindViewHolder()");
 
             try {

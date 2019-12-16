@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.emerson.organizerapp.R;
-import com.emerson.organizerapp.adapters.GalleryAdapter;
+import com.emerson.organizerapp.adapters.GaleriaAdapter;
 import com.emerson.organizerapp.interfaces.RecyclerViewOnClickListenerHack;
-import com.emerson.organizerapp.model.GaleriaDAO;
+import com.emerson.organizerapp.model.GaleriaModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class BottomGalleryDialog extends BottomSheetDialogFragment implements Re
     private BottomGalleryDialog.BottomGalleryListener mListener;
     private RecyclerView rvGalley;
     private ImageView imgClose;
-    private GalleryAdapter galleryAdapter;
+    private GaleriaAdapter galeriaAdapter;
     List<String> galeriaList;
 
     @Nullable
@@ -38,11 +38,11 @@ public class BottomGalleryDialog extends BottomSheetDialogFragment implements Re
         glm.setOrientation(LinearLayoutManager.VERTICAL);
         rvGalley.setLayoutManager(glm);
 
-        galeriaList = GaleriaDAO.getCameraImages(getContext());
+        galeriaList = GaleriaModel.getCameraImages(getContext());
 
-        galleryAdapter = new GalleryAdapter(getContext(), galeriaList);
-        galleryAdapter.setRecyclerViewOnClickListenerHack(this);
-        rvGalley.setAdapter(galleryAdapter);
+        galeriaAdapter = new GaleriaAdapter(getContext(), galeriaList);
+        galeriaAdapter.setRecyclerViewOnClickListenerHack(this);
+        rvGalley.setAdapter(galeriaAdapter);
 
         imgClose.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -10,12 +10,12 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.emerson.organizerapp.R;
-import com.emerson.organizerapp.adapters.ChatAdapter;
+import com.emerson.organizerapp.adapters.MensagemAdapter;
 import com.emerson.organizerapp.adapters.AnotacaoAdapter;
 import com.emerson.organizerapp.beans.Anotacao;
 import com.emerson.organizerapp.beans.Mensagem;
-import com.emerson.organizerapp.model.AnotacaoDAO;
-import com.emerson.organizerapp.model.MensagemDAO;
+import com.emerson.organizerapp.model.AnotacaoModel;
+import com.emerson.organizerapp.model.MensagemModel;
 
 import java.util.List;
 
@@ -43,10 +43,10 @@ public class Alerts {
             public void onClick(DialogInterface dialogInterface, int i) {
                 Anotacao anotacao = new Anotacao(edtNomeMateria.getText().toString());
                 try {
-                    AnotacaoDAO dao = new AnotacaoDAO(conexao);
+                    AnotacaoModel dao = new AnotacaoModel(conexao);
                     anotacao.setIdMateria(dao.inserir(anotacao));
                     Tools tools = new Tools();
-                    tools.createFolder(anotacao.getTitulo());
+                    tools.createFolder(anotacao.getTitulo(),activity);
 
                     materiaAdapter.addView(anotacao, anotacaoList.size());
 
@@ -82,7 +82,7 @@ public class Alerts {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case 0:
-                        AnotacaoDAO dao = new AnotacaoDAO(conexao);
+                        AnotacaoModel dao = new AnotacaoModel(conexao);
                         dao.delete(anotacaoList.get(position).getIdMateria());
                         materiaAdapter.removeListItem(position);
                         break;
@@ -90,7 +90,7 @@ public class Alerts {
             }
         }).show();
     }
-    public void Options(final List<Mensagem> mensagemList, final int position, final ChatAdapter chatAdapter){
+    public void Options(final List<Mensagem> mensagemList, final int position, final MensagemAdapter chatAdapter){
         String[] options = {"Remover"};
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity,R.style.Dialog);
         builder.setItems(options, new DialogInterface.OnClickListener() {
@@ -98,7 +98,7 @@ public class Alerts {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case 0:
-                        MensagemDAO dao = new MensagemDAO(conexao);
+                        MensagemModel dao = new MensagemModel(conexao);
                         dao.delete(mensagemList.get(position).getIdMensagem());
                         chatAdapter.removeListItem(position);
                         break;
@@ -108,10 +108,6 @@ public class Alerts {
     }
 
 
-    public void attachment(){
-        //BottomSheetDialog bottomDialog = new BottomSheetDialog();
-
-    }
 
 
 }

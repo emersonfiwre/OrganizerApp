@@ -20,13 +20,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.List;
 
-public class ChatAdapter extends  RecyclerView.Adapter<ChatAdapter.MyViewHolder>  {
+public class MensagemAdapter extends  RecyclerView.Adapter<MensagemAdapter.MyViewHolder>  {
     private List<Mensagem> mensagemList;
     private LayoutInflater layoutInflater;
     private RecyclerViewOnClickListenerHack recyclerViewOnClickListenerHack;
 
 
-    public ChatAdapter(Context context, List<Mensagem> mensagem){
+    public MensagemAdapter(Context context, List<Mensagem> mensagem){
         this.mensagemList = mensagem;
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -36,7 +36,7 @@ public class ChatAdapter extends  RecyclerView.Adapter<ChatAdapter.MyViewHolder>
 
         Log.i("LOG","onCreateViewHolder()");
         View v = layoutInflater.inflate(R.layout.card_chat,parent,false);
-        ChatAdapter.MyViewHolder myViewHolder = new ChatAdapter.MyViewHolder(v);
+        MensagemAdapter.MyViewHolder myViewHolder = new MensagemAdapter.MyViewHolder(v);
         return myViewHolder;
     }
 

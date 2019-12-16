@@ -25,9 +25,10 @@ import com.emerson.organizerapp.adapters.AnotacaoAdapter;
 import com.emerson.organizerapp.beans.Anotacao;
 import com.emerson.organizerapp.connection.DadosOpenHelp;
 import com.emerson.organizerapp.interfaces.RecyclerViewOnClickListenerHack;
-import com.emerson.organizerapp.model.AnotacaoDAO;
+import com.emerson.organizerapp.model.AnotacaoModel;
 import com.emerson.organizerapp.utilitarios.Alerts;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewOnClickListenerHack {
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewOnCli
     private DadosOpenHelp dadosOpenHelp;
 
     private CoordinatorLayout layoutContentActCadCliente;
-    private AnotacaoDAO materiaDAO;
+    private AnotacaoModel anotacaoModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +51,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewOnCli
         setSupportActionBar(toolbar);
         criarConexao();
 
-        materiaDAO = new AnotacaoDAO(conexao);
-        anotacaoList = materiaDAO.buscarTodos();
+        anotacaoModel = new AnotacaoModel(conexao);
+        anotacaoList = anotacaoModel.buscarTodos();
         anotacaoList.add(0,new Anotacao("Adicionar nova anotação"));
 
         AnotacaoAdapter materiaAdapter = new AnotacaoAdapter(this, anotacaoList);

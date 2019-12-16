@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MensagemDAO {
+public class MensagemModel {
     private SQLiteDatabase conexao;
 
-    public MensagemDAO(SQLiteDatabase conexao){
+    public MensagemModel(SQLiteDatabase conexao){
         this.conexao = conexao;
     }
 
