@@ -28,16 +28,16 @@ public class AnotacaoAdapter extends  RecyclerView.Adapter<AnotacaoAdapter.MyVie
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.i("LOG","onCreateViewHolder()");
-        View v = layoutInflater.inflate(R.layout.card_materias,parent,false);
+        Log.i("AnotacaoAdapter","onCreateViewHolder()");
+        View v = layoutInflater.inflate(R.layout.card_annotation,parent,false);
         MyViewHolder myViewHolder = new MyViewHolder(v);
         return myViewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull  MyViewHolder holder, final int position) {
-        Log.i("LOG","onBindViewHolder()");
-        holder.txtMateria.setText(anotacaoList.get(position).getTitulo());
+        Log.i("AnotacaoAdapter","onBindViewHolder()");
+        holder.txtMateria.setText(anotacaoList.get(position).getNome());
         if(position == anotacaoList.size() -1){
             holder.divider.setVisibility(View.INVISIBLE);
         }
@@ -47,9 +47,9 @@ public class AnotacaoAdapter extends  RecyclerView.Adapter<AnotacaoAdapter.MyVie
         recyclerViewOnClickListenerHack = r;
     }
 
-    public void addView(Anotacao anotacao, int position){
+    public void addView(Anotacao anotacao){
         anotacaoList.add(anotacao);
-        notifyItemInserted(position);
+        notifyItemInserted(anotacaoList.size());
 
     }
     public void removeListItem( int position){

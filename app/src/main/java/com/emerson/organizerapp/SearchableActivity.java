@@ -81,7 +81,7 @@ public class SearchableActivity extends AppCompatActivity {
         mList.clear();
 
         for (int i =0; i < mList.size(); i++){
-            if(mList.get(i).getTitulo().toLowerCase().startsWith(q.toLowerCase())){
+            if(mList.get(i).getNome().toLowerCase().startsWith(q.toLowerCase())){
                 mListAux.add( mList.get(i) );
             }
         }

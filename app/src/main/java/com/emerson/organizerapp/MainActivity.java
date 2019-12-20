@@ -1,19 +1,10 @@
 package com.emerson.organizerapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.Manifest;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -21,26 +12,26 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.emerson.organizerapp.adapters.AnotacaoAdapter;
 import com.emerson.organizerapp.beans.Anotacao;
-import com.emerson.organizerapp.connection.DadosOpenHelp;
 import com.emerson.organizerapp.interfaces.RecyclerViewOnClickListenerHack;
-import com.emerson.organizerapp.model.AnotacaoModel;
-import com.emerson.organizerapp.utilitarios.Alerts;
+import com.emerson.organizerapp.presenter.AnotacaoPresenter;
+import com.emerson.organizerapp.view.Alerts;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewOnClickListenerHack {
     private RecyclerView recyclerView;
     private List<Anotacao> anotacaoList;
     private Toolbar toolbar;
-
-    private SQLiteDatabase conexao;
-    private DadosOpenHelp dadosOpenHelp;
-
-    private CoordinatorLayout layoutContentActCadCliente;
-    private AnotacaoModel anotacaoModel;
+    private CoordinatorLayout layoutMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +40,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewOnCli
 
         initView();
         setSupportActionBar(toolbar);
-        criarConexao();
+        //this.deleteDatabase("OrganizerDb");
 
-        anotacaoModel = new AnotacaoModel(conexao);
-        anotacaoList = anotacaoModel.buscarTodos();
+
+        AnotacaoPresenter presenter = new AnotacaoPresenter(this);
+        anotacaoList = presenter.buscarTodos();
         anotacaoList.add(0,new Anotacao("Adicionar nova anotação"));
 
         AnotacaoAdapter materiaAdapter = new AnotacaoAdapter(this, anotacaoList);
@@ -85,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewOnCli
 
     private void initView(){
         toolbar = findViewById(R.id.toolbar);
-        layoutContentActCadCliente =  findViewById(R.id.layoutContentMain);
+        layoutMain =  findViewById(R.id.layoutContentMain);
         recyclerView = findViewById(R.id.rv_materias);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -93,22 +85,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewOnCli
         recyclerView.setLayoutManager(llm);
     }
 
-    private void criarConexao(){
-        try{
-            dadosOpenHelp = new DadosOpenHelp(this);
-            conexao = dadosOpenHelp.getWritableDatabase();
-            /*Snackbar.make(layoutContentActCadCliente, "CONEXÃO CRIADA COM SUCESSO!", Snackbar.LENGTH_SHORT)
-                    .setAction("OK",null).show();*/
-
-        }catch (SQLException ex){
-            android.app.AlertDialog.Builder  dlg = new android.app.AlertDialog.Builder(this);
-            dlg.setTitle("ERRO!");
-            dlg.setMessage(ex.getMessage());
-            dlg.setNeutralButton("OK",null);
-            dlg.show();
-
-        }
-    }
 
 
     @Override
@@ -129,27 +105,26 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewOnCli
     @Override
     public void onClickListener(View view, int position) {
 
-        if (anotacaoList.get(position).getTitulo().equals("Adicionar nova anotação")){
-            Alerts alerts = new Alerts(this,conexao);
+        if (anotacaoList.get(position).getNome().equals("Adicionar nova anotação")){
+            Alerts alerts = new Alerts(this);
             AnotacaoAdapter adapter = (AnotacaoAdapter) recyclerView.getAdapter();
-            alerts.dialogAddSubject(anotacaoList,adapter);
+            alerts.dialogAddSubject(adapter);
 
         }else{
             Intent intent = new Intent(this, ChatActivity.class);
-            intent.putExtra("materiaId", anotacaoList.get(position).getIdMateria());
-            intent.putExtra("materiaName", anotacaoList.get(position).getTitulo());
+            intent.putExtra("anotacaoId", anotacaoList.get(position).getIdAnotacao());
+            intent.putExtra("anotacaoName", anotacaoList.get(position).getNome());
             startActivity(intent);
         }
     }
 
     @Override
     public void onLongPressClickListener(View view, int position) {
-        if (!anotacaoList.get(position).getTitulo().equals("Adicionar nova anotação")) {
-            Alerts alerts = new Alerts(this,conexao);
+        if (!anotacaoList.get(position).getNome().equals("Adicionar nova anotação")) {
+            Alerts alerts = new Alerts(this);
             AnotacaoAdapter adapter = (AnotacaoAdapter) recyclerView.getAdapter();
             alerts.Options(anotacaoList,position,adapter);
 
-            //Toast.makeText(this, "Anotacao removida", Toast.LENGTH_SHORT).show();
         }
     }
 

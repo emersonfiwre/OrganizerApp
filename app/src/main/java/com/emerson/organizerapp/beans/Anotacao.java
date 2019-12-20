@@ -1,37 +1,44 @@
 package com.emerson.organizerapp.beans;
 
 public class Anotacao {
-    private long idMateria;
-    private byte[] imgMateria;
-    private String titulo;
+    private long idAnotacao;
+    private String imgAnotacao;
+    private String nome;
 
 
-    public Anotacao(String titulo) {
-        setTitulo( titulo);
+    public Anotacao(String nome) {
+        this.nome = nome;
     }
-    public Anotacao() {}
-
-    public byte[] getImgMateria() {
-        return imgMateria;
+    public Anotacao(String imgAnotacao, String nome) {
+        this.imgAnotacao = imgAnotacao;
+        this.nome = nome;
     }
+    public Anotacao(){}
 
-    public void setImgMateria(byte[] imgMateria) {
-        this.imgMateria = imgMateria;
-    }
-
-    public String getTitulo() {
-        return titulo;
+    public long getIdAnotacao() {
+        return idAnotacao;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setIdAnotacao(long idAnotacao) {
+        this.idAnotacao = idAnotacao;
     }
 
-    public long getIdMateria() {
-        return idMateria;
+    public String getImgAnotacao() {
+        return imgAnotacao;
     }
 
-    public void setIdMateria(long idMateria) {
-        this.idMateria = idMateria;
+    public void setImgAnotacao(String imgAnotacao) {
+        this.imgAnotacao = imgAnotacao;
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+
+
 }

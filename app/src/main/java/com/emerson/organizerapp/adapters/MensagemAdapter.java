@@ -29,6 +29,9 @@ public class MensagemAdapter extends  RecyclerView.Adapter<MensagemAdapter.MyVie
     public MensagemAdapter(Context context, List<Mensagem> mensagem){
         this.mensagemList = mensagem;
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        if(mensagemList == null ){
+            Log.i("MensagemAdapter","mensagemList is null");
+        }
     }
     @NonNull
     @Override
@@ -42,22 +45,22 @@ public class MensagemAdapter extends  RecyclerView.Adapter<MensagemAdapter.MyVie
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Log.i("LOG","onBindViewHolder()");
-        holder.txtMenssage.setText(mensagemList.get(position).getMenssagem());
-        holder.txtData.setText(mensagemList.get(position).getData());
+        Log.i("MensagemAdapter","onBindViewHolder()");
+        holder.txtMenssage.setText(mensagemList.get(position).getTexto());
+        holder.txtData.setText(mensagemList.get(position).getHora());
 
         if(mensagemList.get(position).getImagem() != null) {
             try {
-                Log.i("Log", "Whats Path : " + mensagemList.get(position).getImagem());
+                Log.i("MensagemAdapter", "Whats Path : " + mensagemList.get(position).getImagem());
                 File f = new File(mensagemList.get(position).getImagem());
                 Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
                 holder.imageMenssage.setImageBitmap(b);
-                holder.txtMenssage.setText(mensagemList.get(position).getMenssagem());
+                holder.txtMenssage.setText(mensagemList.get(position).getTexto());
                 holder.imageMenssage.setVisibility(View.VISIBLE);
                 holder.txtMenssage.setVisibility(View.GONE);
 
             } catch (FileNotFoundException e) {
-                Log.i("Log", "FileNotFoundException() : " + e.getCause());
+                Log.i("MensagemAdapter", "FileNotFoundException() : " + e.getCause());
                 e.printStackTrace();
             }
         }else{
@@ -76,9 +79,9 @@ public class MensagemAdapter extends  RecyclerView.Adapter<MensagemAdapter.MyVie
         recyclerViewOnClickListenerHack = r;
     }
 
-    public void addView(Mensagem messagem, int position){
+    public void addView(Mensagem messagem){
         mensagemList.add(messagem);
-        notifyItemInserted(position);
+        notifyItemInserted(mensagemList.size());
     }
     public void removeListItem( int position){
         mensagemList.remove(position);

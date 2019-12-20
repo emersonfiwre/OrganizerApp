@@ -3,38 +3,21 @@ package com.emerson.organizerapp.beans;
 public class Mensagem {
 
     private long idMensagem;
-    private String menssagem;
-    private String data;
+    private String texto;
+    private String hora;
     private String imagem;
     private String documento;
-    private long materia;
+    private long idData;
 
-    public Mensagem(String menssagem, String data) {
-        this.setMenssagem(menssagem);
-        this.setData(data);
+    public Mensagem(String menssagem) {
+        this.texto = menssagem;
     }
-    public Mensagem(String menssagem,String photo, String data) {
-        this.setMenssagem(menssagem);
-        this.setImagem(photo);
-        this.setData(data);
+    public Mensagem(String menssagem,String imagem, String hora) {
+        this.setTexto(menssagem);
+        this.imagem = imagem;
+        this.hora = hora;
     }
     public Mensagem(){}
-
-    public String getMenssagem() {
-        return menssagem;
-    }
-
-    public void setMenssagem(String menssagem) {
-        this.menssagem = menssagem;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
 
     public long getIdMensagem() {
         return idMensagem;
@@ -44,6 +27,21 @@ public class Mensagem {
         this.idMensagem = idMensagem;
     }
 
+    public String getTexto() {
+        return texto;
+    }
+
+    public void setTexto(String menssagem) {
+        this.texto = menssagem;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
+    }
 
     public String getImagem() {
         return imagem;
@@ -60,11 +58,12 @@ public class Mensagem {
     public void setDocumento(String documento) {
         this.documento = documento;
     }
-    public long getMateria() {
-        return materia;
+
+    public long getIdData() {
+        return idData;
     }
 
-    public void setMateria(long materia) {
-        this.materia = materia;
+    public void setIdData(long idData) {
+        this.idData = idData;
     }
 }

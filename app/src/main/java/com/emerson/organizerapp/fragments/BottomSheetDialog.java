@@ -1,13 +1,10 @@
 package com.emerson.organizerapp.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -23,20 +20,13 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.bottom_sheet_layout, container, false);
 
-        TextView btnCamera = v.findViewById(R.id.btn_camera);
-        TextView btnGallery = v.findViewById(R.id.btn_gallery);
+        TextView btnImagem = v.findViewById(R.id.btn_camera);
         TextView btnDocuments = v.findViewById(R.id.btn_documents);
-        btnCamera.setOnClickListener(new View.OnClickListener() {
+
+        btnImagem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mListener.onButtonClicked("btnCamera");
-                dismiss();
-            }
-        });
-        btnGallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.onButtonClicked("btnGallery");
                 dismiss();
             }
         });

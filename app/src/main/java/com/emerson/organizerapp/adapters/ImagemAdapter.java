@@ -17,31 +17,31 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.List;
 
-public class GaleriaAdapter extends  RecyclerView.Adapter<GaleriaAdapter.MyViewHolder> {
+public class ImagemAdapter extends  RecyclerView.Adapter<ImagemAdapter.MyViewHolder> {
     private List<String> galeriaList;
     private LayoutInflater layoutInflater;
     private RecyclerViewOnClickListenerHack recyclerViewOnClickListenerHack;
 
-    public GaleriaAdapter(Context context, List<String> galeria){
+    public ImagemAdapter(Context context, List<String> galeria){
         this.galeriaList = galeria;
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
     }
     @NonNull
     @Override
-    public GaleriaAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ImagemAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Log.i("LOG","onCreateViewHolder()");
-        View v = layoutInflater.inflate(R.layout.card_gallery,parent,false);
-        GaleriaAdapter.MyViewHolder myViewHolder = new GaleriaAdapter.MyViewHolder(v);
+        View v = layoutInflater.inflate(R.layout.card_image,parent,false);
+        ImagemAdapter.MyViewHolder myViewHolder = new ImagemAdapter.MyViewHolder(v);
         return myViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GaleriaAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ImagemAdapter.MyViewHolder holder, int position) {
         Log.i("LOG","onBindViewHolder()");
 
             try {
-                Log.i("Log", "Whats Path : " + galeriaList.get(position));
+                Log.i("onBindViewHolder()", "Whats Path: " + galeriaList.get(position));
             File f = new File(galeriaList.get(position));
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
             holder.image.setImageBitmap(b);

@@ -6,27 +6,14 @@
     android:orientation="vertical"
     android:background="@color/colorWhite">
 
+
     <TextView
         android:id="@+id/btn_camera"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_photo_camera"
-        android:drawablePadding="20dp"
-        android:text="Camera"
-        android:textSize="18sp"
-        android:textColor="@color/colorBlack"
-        android:foreground="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:padding="15dp"/>
-
-    <TextView
-        android:id="@+id/btn_gallery"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:drawableLeft="@drawable/ic_attach"
         android:drawablePadding="20dp"
-        android:text="Carregar da galeria"
+        android:text="Câmera"
         android:textSize="18sp"
         android:textColor="@color/colorBlack"
         android:foreground="?attr/selectableItemBackground"
