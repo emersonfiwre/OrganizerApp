@@ -27,36 +27,37 @@ public class AuxDataAdapter extends RecyclerView.Adapter<AuxDataAdapter.MyViewHo
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public AuxDataAdapter(Context context,List<AuxData> dataList){
+    public AuxDataAdapter(Context context, List<AuxData> dataList) {
         this.context = context;
         this.dataList = dataList;
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
     }
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.i("AuxDataAdapter","onCreateViewHolder()");
-        View v = layoutInflater.inflate(R.layout.card_data_envio,parent,false);
+        Log.i("AuxDataAdapter", "onCreateViewHolder()");
+        View v = layoutInflater.inflate(R.layout.card_data_envio, parent, false);
         AuxDataAdapter.MyViewHolder myViewHolder = new AuxDataAdapter.MyViewHolder(v);
         return myViewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Log.i("AuxDataAdapter","onBindViewHolder()");
-        try{
+        Log.i("AuxDataAdapter", "onBindViewHolder()");
+        try {
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-            Date result =  df.parse(dataList.get(position).getDataEnvio());
+            Date result = df.parse(dataList.get(position).getDataEnvio());
 
             SimpleDateFormat formataData = new SimpleDateFormat("EEE, d MMM yyyy");
 
             holder.txtData.setText(formataData.format(result));
 
-        }catch (ParseException e){
+        } catch (ParseException e) {
             Log.e("onBindViewHolder", "ParseException: " + e.getMessage());
         }
-        setupRecycler(holder,position);
+        setupRecycler(holder, position);
 
     }
 
@@ -65,35 +66,40 @@ public class AuxDataAdapter extends RecyclerView.Adapter<AuxDataAdapter.MyViewHo
         return dataList.size();
     }
 
-    public void addView(AuxData data){
+    public void addView(AuxData data) {
         dataList.add(data);
         notifyItemInserted(dataList.size());
 
     }
-    public void removeListItem( int position){
+
+    public void removeListItem(int position) {
         dataList.remove(position);
         notifyItemRemoved(position);
     }
 
-    private void setupRecycler(MyViewHolder holder, int position){
+    private void setupRecycler(MyViewHolder holder, int position) {
         holder.rvMensagem.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(context);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
+        //llm.setReverseLayout(true);
+        //llm.setStackFromEnd(true);
         holder.rvMensagem.setLayoutManager(llm);
         MensagemPresenter presenter = new MensagemPresenter(context);
         List<AuxData> datas = presenter.buscarTodos(dataList);
         MensagemAdapter adapter = new MensagemAdapter(context, datas.get(position).getMensagemList());
+        //Log.i("buscarTodos()", String.valueOf(datas.get(position).getMensagemList().size()));
+        //holder.rvMensagem.smoothScrollToPosition(datas.get(position).getMensagemList().size() - 1);
         holder.rvMensagem.setAdapter(adapter);
+        //holder.rvMensagem.scrollToPosition(datas.get(position).getMensagemList().size() - 1);
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public CardView card;
         public TextView txtData;
-        public  RecyclerView rvMensagem;
+        public RecyclerView rvMensagem;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-
             card = itemView.findViewById(R.id.card_data_envio);
             txtData = itemView.findViewById(R.id.txt_data);
             rvMensagem = itemView.findViewById(R.id.rv_mensagem);

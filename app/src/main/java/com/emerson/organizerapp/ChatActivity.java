@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,13 +20,8 @@ import com.emerson.organizerapp.beans.Mensagem;
 import com.emerson.organizerapp.fragments.BottomSheetDialog;
 import com.emerson.organizerapp.presenter.AuxDataPresenter;
 import com.emerson.organizerapp.presenter.MensagemPresenter;
-import com.emerson.organizerapp.utilitarios.Tools;
-import com.fxn.pix.Options;
-import com.fxn.pix.Pix;
-import com.fxn.utility.ImageQuality;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ChatActivity extends AppCompatActivity implements BottomSheetDialog.BottomSheetListener{
@@ -40,7 +34,6 @@ public class ChatActivity extends AppCompatActivity implements BottomSheetDialog
 
     private long anotacaoId;
     private String anotacaoName;
-    private static final int RequestCode = 100;
     private AuxDataPresenter presenter;
 
 
@@ -62,12 +55,14 @@ public class ChatActivity extends AppCompatActivity implements BottomSheetDialog
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             anotacaoId = extras.getLong("anotacaoId");
+            Log.i("ChatActiviy","anotacaoId: "+String.valueOf(anotacaoId));
             anotacaoName = extras.getString("anotacaoName");
             toolbar.setTitle(anotacaoName);
         }
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
+        llm.setStackFromEnd(true);
         recyclerView.setLayoutManager(llm);
 
         presenter = new AuxDataPresenter(this);
@@ -130,26 +125,25 @@ public class ChatActivity extends AppCompatActivity implements BottomSheetDialog
         switch (text) {
             case "btnCamera":
                 //Library PixImagePicker
-                Options options = Options.init()
-                        .setRequestCode(RequestCode)                                            //Request code for activity results
-                        .setCount(10)                                                           //Number of images to restict selection count
-                        .setFrontfacing(false)                                                  //Front Facing camera on start
-                        .setImageQuality(ImageQuality.HIGH)                                     //Image Quality
-                        .setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)              //Orientaion
-                        .setPath(Tools.basePath + anotacaoName);                                //Custom Path For Image Storage                               //Custom Path For Image Storage
-
-                Pix.start(ChatActivity.this, options);
-                Log.i("onButtonClicked()",options.getPath());
+                Intent intent = new Intent(this, PreviewActivity.class);
+                intent.putExtra("anotacaoId", anotacaoId);
+                intent.putExtra("anotacaoName", anotacaoName);
+                startActivity(intent);
+                /*dataList.clear();
+                dataList = presenter.buscarTodos(anotacaoId);
+                AuxDataAdapter ad = new AuxDataAdapter(this,dataList);
+                recyclerView.setAdapter(ad);*/
                 break;
 
             case "btnDocuments":
-                Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Módulo em construção", Toast.LENGTH_SHORT).show();
                 break;
         }
 
     }
 
-    /*private void sendImage(String uri) {
+/*
+    private void sendImage(String uri) {
 
         Mensagem newMensagem = new Mensagem();
         newMensagem.setData(getDate());
@@ -182,16 +176,8 @@ public class ChatActivity extends AppCompatActivity implements BottomSheetDialog
         return dateNow;
     }*/
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-            super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == RequestCode) {
-            ArrayList<String> imagesList = data.getStringArrayListExtra(Pix.IMAGE_RESULTS);
-            /*for(String uri : imagesList){
-                sendImage(uri);
-            }*/
 
-        }
 
-    }
+
+
 }

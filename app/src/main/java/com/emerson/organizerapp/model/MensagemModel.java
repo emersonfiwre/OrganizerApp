@@ -46,7 +46,6 @@ public class MensagemModel {
         contentValues.put("FK_ID_DATA",mensagem.getIdData());
 
         resultado = conexao.insertOrThrow("MENSAGEM",null,contentValues);
-        Log.i("MensagemModel","inserir(): " + resultado);
         return resultado;
     }
     public void deletar(long codigo){
@@ -65,9 +64,14 @@ public class MensagemModel {
             List<Mensagem> mensagemList = new ArrayList<>();
 
             StringBuilder sql = new StringBuilder();
-            sql.append("SELECT ID_MENSAGEM, TEXTO,IMAGEM,DOCUMENTO,HORA_ENVIO,FK_ID_DATA");
-            sql.append(" FROM MENSAGEM");
-            //sql.append(" WHERE FK_DATA_ENVIO = " + data.getDataEnvio());
+            sql.append("SELECT ID_MENSAGEM, TEXTO,M.IMAGEM,DOCUMENTO,HORA_ENVIO,FK_ID_DATA");
+            sql.append(" FROM MENSAGEM M INNER JOIN AUX_DATA AX");
+            sql.append(" ON FK_ID_DATA = ID_DATA");
+            sql.append("  AND DATA_ENVIO = '"+data.getDataEnvio()+"'");
+            //sql.append(" WHERE DATA_ENVIO = " + data.getDataEnvio());
+            sql.append("  INNER JOIN ANOTACAO A ");
+            sql.append("  ON FK_ID_ANOTACAO = '"+ data.getFkAnotacao() +"'");
+            sql.append("  GROUP BY ID_MENSAGEM");
 
             Cursor resultado = conexao.rawQuery(sql.toString(), null);
 
@@ -83,12 +87,10 @@ public class MensagemModel {
                     mensagem.setHora(resultado.getString(resultado.getColumnIndexOrThrow("HORA_ENVIO")));
                     mensagem.setIdData(resultado.getInt(resultado.getColumnIndexOrThrow("FK_ID_DATA")));
 
-
                     mensagemList.add(mensagem);
                 } while (resultado.moveToNext());
             }
             data.setMensagemList(mensagemList);
-            Log.i("MensagemModel","buscarTodos(): " + data.getMensagemList().size());
         }
 
 

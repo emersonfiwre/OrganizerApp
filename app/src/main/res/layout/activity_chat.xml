@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite">
+    android:background="@color/colorLightlGrey">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -69,12 +69,12 @@
             android:layout_marginEnd="10dp"
             android:layout_alignParentBottom="true"
             android:onClick="sendMessage"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:clickable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_send" />
+            app:srcCompat="@drawable/ic_send"
+            android:focusable="true" />
 
     </RelativeLayout>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

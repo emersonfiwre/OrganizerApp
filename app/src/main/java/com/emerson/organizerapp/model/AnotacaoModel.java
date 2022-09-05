@@ -63,13 +63,9 @@ public class AnotacaoModel {
     public void deletar(long codigo){
         String[] parametros = new String[1];
         parametros[0] = String.valueOf(codigo);
-
         conexao.delete("ANOTACAO","ID_ANOTACAO = ?", parametros);
-
-
     }
     public void alterar(Anotacao anotacao){
-
         ContentValues contentValues = new ContentValues();
         contentValues.put("IMAGEM", anotacao.getImgAnotacao());
         contentValues.put("NOME", anotacao.getNome());

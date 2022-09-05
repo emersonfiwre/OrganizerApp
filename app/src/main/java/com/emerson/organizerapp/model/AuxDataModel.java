@@ -37,35 +37,37 @@ public class AuxDataModel {
 
     public long inserir(AuxData data) {
         long resultado;
-        if (!ifNotExists(data.getDataEnvio())) {
+        if (!ifNotExists(data.getDataEnvio(),data.getFkAnotacao())) {
             ContentValues contentValues = new ContentValues();
             contentValues.put("DATA_ENVIO", data.getDataEnvio());
             contentValues.put("FK_ID_ANOTACAO", data.getFkAnotacao());
 
             resultado = conexao.insertOrThrow("AUX_DATA", null, contentValues);
         } else {
-            resultado = whatId(data.getDataEnvio()).getIdData();
+            resultado = whatId(data.getDataEnvio(),data.getFkAnotacao()).getIdData();
         }
         Log.i("AuxDataModel", "inserir(): " + resultado);
         return resultado;
     }
 
-    private boolean ifNotExists(String exists) {
+    private boolean ifNotExists(String exists, long anotacaoId) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT ID_DATA, DATA_ENVIO, FK_ID_ANOTACAO");
         sql.append(" FROM AUX_DATA");
-        sql.append(" WHERE DATA_ENVIO = " + exists);
+        sql.append(" WHERE FK_ID_ANOTACAO = " + anotacaoId);
+        sql.append(" AND DATA_ENVIO = '" + exists + "'");
         Cursor resultado = conexao.rawQuery(sql.toString(), null);
-        return (resultado.getCount() > 0);
 
+        return (resultado.getCount() > 0);
     }
 
-    private AuxData whatId(String exists) {
+    private AuxData whatId(String exists, long anotacaoId) {
 
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT ID_DATA, DATA_ENVIO, FK_ID_ANOTACAO");
         sql.append(" FROM AUX_DATA");
-        sql.append(" WHERE DATA_ENVIO like " + exists);
+        sql.append(" WHERE FK_ID_ANOTACAO = " + anotacaoId);
+        sql.append(" AND DATA_ENVIO = '" + exists + "'");
 
         Cursor resultado = conexao.rawQuery(sql.toString(), null);
         AuxData data = new AuxData();
@@ -76,7 +78,7 @@ public class AuxDataModel {
             data.setDataEnvio(resultado.getString(resultado.getColumnIndexOrThrow("DATA_ENVIO")));
             data.setFkAnotacao(resultado.getInt(resultado.getColumnIndexOrThrow("FK_ID_ANOTACAO")));
         }
-        Log.i("AuxDataModel", "whatId(): " + data.getIdData());
+
         return data;
     }
 

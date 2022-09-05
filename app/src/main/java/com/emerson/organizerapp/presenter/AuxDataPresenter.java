@@ -1,6 +1,8 @@
 package com.emerson.organizerapp.presenter;
 
 import android.content.Context;
+import android.util.Log;
+
 import com.emerson.organizerapp.beans.AuxData;
 import com.emerson.organizerapp.model.AuxDataModel;
 import java.util.List;

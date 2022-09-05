@@ -23,7 +23,7 @@ public class MensagemPresenter {
     public long inserir(Mensagem mensagem, long anotacaoId){
         mensagem.setIdData(inserirAuxData(anotacaoId));
         mensagem.setHora(getHour());
-        Log.i("MensagemPresenter",getHour());
+        Log.i("MensagemPresenter", getDate());
         MensagemModel model = new MensagemModel(context);
         return model.inserir(mensagem);
     }
@@ -47,7 +47,7 @@ public class MensagemPresenter {
     private String getDate(){
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");
         String dateNow = formataData.format(new Date());
-        return dateNow;
+        return dateNow.trim();
     }
     private String getHour(){
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formataData = new SimpleDateFormat("HH:mm");

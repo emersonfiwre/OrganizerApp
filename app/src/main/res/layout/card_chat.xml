@@ -14,15 +14,16 @@
         android:layout_height="wrap_content"
         android:foreground="?android:attr/selectableItemBackground"
         android:background="@drawable/shape_for_message"
-        android:orientation="vertical"
-        android:padding="5dp">
+        android:id="@+id/card_shape"
+        android:orientation="vertical">
 
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/image_message"
             android:layout_width="250dp"
             android:layout_height="250dp"
-            android:scaleType="fitCenter"
-            android:layout_margin="5dp"
+            android:scaleType="centerCrop"
+            app:riv_corner_radius="5dp"
+            app:riv_corner_radius_bottom_right="0dp"
             android:visibility="gone"
             android:gravity="center_vertical"/>
 
@@ -30,7 +31,6 @@
             android:id="@+id/txt_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="3dp"
             android:gravity="center_vertical"
             android:padding="5dp"
             android:textColor="@color/colorBlack"
@@ -40,10 +40,10 @@
             android:id="@+id/txt_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="2dp"
+            android:padding="5dp"
+            android:paddingTop="0dp"
             android:layout_gravity="end|bottom"
             android:textColor="@color/colorDarkGrey"
             android:textSize="10sp" />
     </LinearLayout>
-
 </androidx.cardview.widget.CardView>

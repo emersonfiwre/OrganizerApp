@@ -8,9 +8,12 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorTransparent">#00FFFFFF</color>
     <color name="colorLightGrey">#cccccc</color>
+    <color name="colorLightlGrey">#f0eded</color>
     <color name="colorDarkGrey">#A3404040</color>
     <color name="colorPrimaryPix">#06D6BA</color>
     <color name="colorPrimaryLightPix">#8031C2B0</color>
+    <color name="colorRed">#cf4848</color>
+    <color name="black40">#40000000</color>
 
 
 
